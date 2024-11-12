@@ -6,7 +6,7 @@ services:
     image: laravel-app
     container_name: laravel-app
     ports:
-      - "8000:8000"  # Map the container's port 8000 to the host's port 8000
+      - "8000:8000"
     volumes:
       - .:/var/www/html
     environment:
@@ -22,8 +22,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: task
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
     ports:
       - "3307:3306"
     volumes:
@@ -39,6 +37,21 @@ services:
       - "8080:80"
     depends_on:
       - db
+
+  react-app:
+    build:
+      context: ./frontend
+    image: react-app
+    container_name: react-app
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    volumes:
+      - ./frontend:/app
+    command: ["npm", "start"]
+    depends_on:
+      - laravel-app
 
 volumes:
   mysql_data:
