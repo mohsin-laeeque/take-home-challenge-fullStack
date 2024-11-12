@@ -1,4 +1,4 @@
-News Aggregator Project
+Take-Home Challenge FullStack
 
 This project is a full-stack web application built with Laravel (backend) and React (frontend). It aggregates news from various sources and provides user authentication, personalized news feeds, and search/filter functionalities.
 Prerequisites
