@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Article;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class ScrapeNews extends Command
 {
@@ -27,10 +28,17 @@ class ScrapeNews extends Command
      */
     public function handle()
     {
+        $apiKey = env('NEWS_API_KEY');
         $response = Http::get('https://newsapi.org/v2/top-headlines', [
-            'apiKey' => env('NEWS_API_KEY'),
-            'country' => 'us',
+            'apiKey' => $apiKey,
+            'country' => 'us', // adjust as needed
+            'category' => 'technology', // adjust as needed
         ]);
+
+        if ($response->failed()) {
+            $this->error('Failed to fetch news data.');
+            return 1;
+        }
 
         $articles = $response->json()['articles'];
 
@@ -41,11 +49,12 @@ class ScrapeNews extends Command
                     'content' => $article['description'] ?? 'No content available',
                     'author' => $article['author'],
                     'source' => $article['source']['name'],
-                    'published_at' => $article['publishedAt'],
+                    'published_at' => Carbon::parse($article['publishedAt'])->format('Y-m-d H:i:s'),
                 ]
             );
         }
 
-        $this->info("News articles scraped successfully!");
+        $this->info('News articles scraped and saved successfully!');
+        return 0;
     }
 }
