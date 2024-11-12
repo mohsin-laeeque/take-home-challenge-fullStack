@@ -12,15 +12,15 @@ class ArticleController extends Controller
     {
         $query = Article::query();
 
-        if ($request->has('keyword')) {
+        if ($request->has('keyword') && $request->get('keyword') != null) {
             $query->where('title', 'like', '%' . $request->keyword . '%');
         }
 
-        if ($request->has('date')) {
+        if ($request->has('date') && $request->get('date') != null) {
             $query->whereDate('published_at', $request->date);
         }
 
-        if ($request->has('source')) {
+        if ($request->has('source') && $request->get('source') != null) {
             $query->where('source', $request->source);
         }
 
