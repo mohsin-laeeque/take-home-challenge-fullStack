@@ -12,10 +12,9 @@ services:
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
-      - APP_KEY=${APP_KEY}
     depends_on:
       - db
-    command: sh -c "php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000"
+    command: sh -c "composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000"
 
   db:
     image: mysql:8.0
@@ -50,7 +49,7 @@ services:
       - REACT_APP_API_URL=http://localhost:8000/api
     volumes:
       - ./frontend:/app
-    command: ["npm", "start"]
+    command: sh -c "npm install && npm start"
     depends_on:
       - laravel-app
 
