@@ -11,3 +11,12 @@ export const fetchArticles = (filters = {}) => {
     },
   });
 };
+
+// Ensure fetchSources function is here and exported
+export const fetchSources = () => {
+  return axios.get(`${API_URL}/articles/sources`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

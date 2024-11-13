@@ -35,9 +35,6 @@ function App() {
                         📰 News Feed
                     </Navbar.Brand>
                     <Nav className="ml-auto">
-                        {/* <Nav.Link as={Link} to="/">
-                            Home
-                        </Nav.Link> */}
                         {isLoggedIn ? (
                             <LogoutButton setIsLoggedIn={setIsLoggedIn} />
                         ) : (

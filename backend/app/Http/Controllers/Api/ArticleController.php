@@ -12,20 +12,32 @@ class ArticleController extends Controller
     {
         $query = Article::query();
 
-        if ($request->has('keyword') && $request->get('keyword') != null) {
-            $query->where('title', 'like', '%' . $request->keyword . '%');
+        // Add keyword filter
+        if ($request->filled('keyword')) {
+            $query->where('title', 'like', '%' . $request->get('keyword') . '%');
         }
 
-        if ($request->has('date') && $request->get('date') != null) {
-            $query->whereDate('published_at', $request->date);
+        // Add date filter
+        if ($request->filled('date')) {
+            $query->whereDate('published_at', $request->get('date'));
         }
 
-        if ($request->has('source') && $request->get('source') != null) {
-            $query->where('source', $request->source);
+        // Add source filter
+        if ($request->filled('source')) {
+            $query->where('source', $request->get('source'));
         }
 
+        // Execute query and paginate
         $articles = $query->paginate(10);
 
+
         return response()->json($articles);
+    }
+
+    // get unique sources
+    public function sources()
+    {
+        $sources = Article::distinct()->pluck('source');
+        return response()->json($sources);
     }
 }

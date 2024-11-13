@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index']);
+    Route::get('/articles/sources', [ArticleController::class, 'sources']);
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
     // Route::post('/preferences', [UserPreferenceController::class, 'store']);
 });
