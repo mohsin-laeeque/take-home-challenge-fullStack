@@ -1,4 +1,4 @@
-# Use the official PHP image with FPM
+# Use the official PHP image with FPM (FastCGI Process Manager)
 FROM php:8.2-fpm
 
 # Set working directory
@@ -16,14 +16,23 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
-# Copy the application code
+# Copy the existing application directory contents
 COPY . .
 
 # Install PHP dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install
 
-# Copy .env.example to .env if it doesn't exist
-RUN cp .env.example .env || true
+# Copy environment variables
+COPY .env.example .env
 
-# Expose port 8000
+# Generate application key
+RUN php artisan key:generate
+
+# migrate database
+RUN php artisan migrate
+
+# Expose port 8000 for php artisan serve
 EXPOSE 8000
+
+# Start the Laravel server when the container starts
+CMD php artisan serve --host=0.0.0.0 --port=8000

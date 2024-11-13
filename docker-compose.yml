@@ -10,11 +10,24 @@ services:
     volumes:
       - ./backend:/var/www/html
     environment:
+      - APP_NAME=task
+      - APP_KEY=base64:RbBxGZgdVCx2HlATWYaYgwQxkLiq8XvNJ7LyfiQ/rfg=
+      - APP_URL=http://localhost:8000
+      - FRONTEND_URL=ttp://localhost:3000
       - APP_ENV=local
       - APP_DEBUG=true
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=task
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - NEWS_API_KEY="ec92134627e54f62ad9307f0646df597"
+      - GUARDIAN_API_KEY="52bd9df6-9dba-4721-8c25-3553739a6c16"
+      - NYTIMES_API_KEY="3qMjz5RbzQbLpthpDzEWIkLNWtqqKliS"
     depends_on:
       - db
-    command: sh -c "composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000"
+    command: sh -c "php artisan app:scrape-news"
 
   db:
     image: mysql:8.0
