@@ -32,7 +32,7 @@ function App() {
             <Navbar bg="dark" variant="dark" expand="lg">
                 <Container>
                     <Navbar.Brand as={Link} to="/">
-                        Task
+                        📰 News Feed
                     </Navbar.Brand>
                     <Nav className="ml-auto">
                         {/* <Nav.Link as={Link} to="/">
