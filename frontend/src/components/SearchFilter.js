@@ -3,7 +3,7 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchSources } from "../services/articleService";
-import { format } from "date-fns"; 
+import { format } from "date-fns";
 
 const SearchFilter = ({ onFilterChange }) => {
   const [keyword, setKeyword] = useState("");
@@ -12,7 +12,6 @@ const SearchFilter = ({ onFilterChange }) => {
   const [date, setDate] = useState("");
 
   useEffect(() => {
-    // Fetch unique sources when component loads
     const loadSources = async () => {
       try {
         const response = await fetchSources();
@@ -21,7 +20,6 @@ const SearchFilter = ({ onFilterChange }) => {
         console.error("Failed to load sources");
       }
     };
-
     loadSources();
   }, []);
 
@@ -31,15 +29,22 @@ const SearchFilter = ({ onFilterChange }) => {
   };
 
   return (
-    <Card className="p-4 mb-4 shadow-sm">
-      <h5 className="text-center mb-3">Filter Articles</h5>
+    <Card className="p-4 mb-4 rounded-3 border-1 bg-light">
+      <h5 className="text-center mb-4 text-primary fw-bold">Filter Articles</h5>
       <Form>
         <Row className="gy-3">
           <Col md={4}>
-            <Form.Control type="text" placeholder="🔍 Search by keyword" value={keyword} onChange={(e) => setKeyword(e.target.value)} className="form-control-lg" />
+            <Form.Control
+              type="text"
+              placeholder="🔍 Search by keyword"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              className="form-control-lg border-0 shadow-sm rounded-2"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
           </Col>
           <Col md={3}>
-            <Form.Select value={source} onChange={(e) => setSource(e.target.value)} className="form-control-lg">
+            <Form.Select value={source} onChange={(e) => setSource(e.target.value)} className="form-control-lg border-0 shadow-sm rounded-2" style={{ backgroundColor: "#f8f9fa" }}>
               <option value="">All Sources</option>
               {sources.map((src) => (
                 <option key={src} value={src}>
@@ -53,14 +58,15 @@ const SearchFilter = ({ onFilterChange }) => {
               selected={date}
               onChange={(date) => setDate(date)}
               dateFormat="yyyy-MM-dd"
-              className="form-control form-control-lg"
+              className="form-control form-control-lg border-0 shadow-sm rounded-2"
               calendarClassName="custom-calendar"
               placeholderText="Select a date"
               showPopperArrow={false}
+              style={{ backgroundColor: "#f8f9fa" }}
             />
           </Col>
           <Col md={2}>
-            <Button variant="primary" onClick={handleFilter} className="w-100 btn-lg">
+            <Button variant="primary" onClick={handleFilter} className="w-100 btn-lg fw-bold shadow-sm" style={{ backgroundColor: "#0d6efd", borderColor: "#0d6efd" }}>
               Apply Filters
             </Button>
           </Col>

@@ -28,7 +28,7 @@ class ArticleController extends Controller
         }
 
         // Execute query and paginate
-        $articles = $query->paginate(10);
+        $articles = $query->paginate(12);
 
 
         return response()->json($articles);

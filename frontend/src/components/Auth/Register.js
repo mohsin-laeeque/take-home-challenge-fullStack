@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { register } from "../../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
 
 const Register = () => {
@@ -38,14 +38,18 @@ const Register = () => {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
             </Form.Group>
-            <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Group controlId="formPasswordConfirmation" className="mb-3">
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control type="password" placeholder="Confirm Password" onChange={(e) => setPasswordConfirmation(e.target.value)} required />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100">
+            <Button variant="primary" type="submit" className="w-100 mb-3">
               Register
             </Button>
           </Form>
+          <div className="text-center">
+            <span>Already have an account? </span>
+            <Link to="/login">Login</Link>
+          </div>
         </Card.Body>
       </Card>
     </Container>
