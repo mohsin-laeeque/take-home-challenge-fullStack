@@ -15,10 +15,10 @@ Frontend (React): UI for login, registration, news display, and preferences
 Setup and Run
 1. Clone the Repository
 
-    ```
-    git clone https://github.com/mohsin-laeeque/Take-Home-Challenge-FullStack.git
-    cd Take-Home-Challenge-FullStack
-    ```
+```
+git clone https://github.com/mohsin-laeeque/Take-Home-Challenge-FullStack.git
+cd Take-Home-Challenge-FullStack
+```
 
 
 2 Build and Run Containers (docker must be running on your machine)
