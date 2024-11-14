@@ -28,12 +28,12 @@ cd Take-Home-Challenge-FullStack
 
 3 Default user is seeded 
 
-    email: mohsin@test.com
-    password: mohsin123
+email: mohsin@test.com
+password: mohsin123
 
 4 App will be running:
 
-    Laravel (backend): http://localhost:8000
-    React (frontend): http://localhost:3000
-    MySQL: localhost:3307
-    phpMyAdmin: http://localhost:8080
+Laravel (backend): http://localhost:8000
+React (frontend): http://localhost:3000
+MySQL: localhost:3307
+phpMyAdmin: http://localhost:8080
