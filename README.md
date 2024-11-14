@@ -15,15 +15,19 @@ Frontend (React): UI for login, registration, news display, and preferences
 Setup and Run
 1. Clone the Repository
 
+    ```
     git clone https://github.com/mohsin-laeeque/Take-Home-Challenge-FullStack.git
     cd Take-Home-Challenge-FullStack
+    ```
 
 2. Set Up the Backend (Laravel)
 
 
 3 Build and Run Containers (docker must be running on your machine)
 
+    ```
     docker-compose up --build -d
+    ```
 
 Laravel (backend): http://localhost:8000
 React (frontend): http://localhost:3000
