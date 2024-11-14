@@ -3,30 +3,57 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchSources } from "../services/articleService";
+import { getUserPreferences } from "../services/authService";
 import { format } from "date-fns";
 
 const SearchFilter = ({ onFilterChange }) => {
   const [keyword, setKeyword] = useState("");
   const [source, setSource] = useState("");
   const [sources, setSources] = useState([]);
+  const [preferredSources, setPreferredSources] = useState([]);
   const [date, setDate] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadSources = async () => {
+    const loadSourcesAndPreferences = async () => {
       try {
-        const response = await fetchSources();
-        setSources(response.data);
+        // Fetch available sources and user preferences concurrently
+        const [sourcesResponse, preferencesResponse] = await Promise.all([fetchSources(), getUserPreferences()]);
+
+        setSources(sourcesResponse.data || []); // Set all available sources
+        setPreferredSources(preferencesResponse.data.preferred_sources || []); // Set preferred sources
+        setLoading(false);
       } catch (error) {
-        console.error("Failed to load sources");
+        console.error("Failed to load sources or preferences", error);
+        setLoading(false);
       }
     };
-    loadSources();
+
+    loadSourcesAndPreferences();
   }, []);
+
+  // Determine whether to display preferred sources or all sources
+  const filteredSources = preferredSources.length > 0 ? preferredSources : sources;
+
+  // Pre-select the first preferred source if available
+  useEffect(() => {
+    if (preferredSources.length > 0) {
+      setSource(preferredSources[0]); // Set first preferred source as selected by default
+    }
+  }, [preferredSources]);
 
   const handleFilter = () => {
     const formattedDate = date ? format(date, "yyyy-MM-dd") : null;
     onFilterChange({ keyword, source, date: formattedDate });
   };
+
+  if (loading) {
+    return (
+      <Card className="p-4 mb-4 rounded-3 border-1 bg-light text-center">
+        <span>Loading filters...</span>
+      </Card>
+    );
+  }
 
   return (
     <Card className="p-4 mb-4 rounded-3 border-1 bg-light">
@@ -46,7 +73,7 @@ const SearchFilter = ({ onFilterChange }) => {
           <Col md={3}>
             <Form.Select value={source} onChange={(e) => setSource(e.target.value)} className="form-control-lg border-0 shadow-sm rounded-2" style={{ backgroundColor: "#f8f9fa" }}>
               <option value="">All Sources</option>
-              {sources.map((src) => (
+              {filteredSources.map((src) => (
                 <option key={src} value={src}>
                   {src}
                 </option>
