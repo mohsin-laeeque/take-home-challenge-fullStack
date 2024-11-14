@@ -7,9 +7,17 @@ import { format } from "date-fns";
 const NewsFeed = ({ filters }) => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCheckingLogin, setIsCheckingLogin] = useState(true); // New state to handle login verification loading
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const isLoggedIn = !!localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check login status
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+    setIsCheckingLogin(false); // Set login check to false after verifying token
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -33,6 +41,16 @@ const NewsFeed = ({ filters }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  if (isCheckingLogin) {
+    return (
+      <Container className="d-flex justify-content-center align-items-center my-4">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Checking login status...</span>
+        </Spinner>
+      </Container>
+    );
+  }
 
   if (!isLoggedIn) {
     return (
