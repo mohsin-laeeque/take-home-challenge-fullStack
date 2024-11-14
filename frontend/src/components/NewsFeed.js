@@ -15,7 +15,7 @@ const NewsFeed = ({ filters }) => {
     if (isLoggedIn) {
       loadArticles(filters, currentPage);
     }
-  }, [filters, currentPage]);
+  }, [filters, currentPage, isLoggedIn]);
 
   const loadArticles = async (filters, page) => {
     setIsLoading(true);

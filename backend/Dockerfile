@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     zip \
     unzip \
+    default-mysql-client \
     && docker-php-ext-install pdo_mysql gd
 
 # Install Composer
@@ -28,8 +29,12 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 # Generate application key
 RUN php artisan key:generate
 
+# Copy the wait script and make it executable
+COPY wait-for-db.sh /wait-for-db.sh
+RUN chmod +x /wait-for-db.sh
+
 # Expose port 8000
 EXPOSE 8000
 
-# Run migrations and start the Laravel server
-CMD php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000
+# Run the wait script as the final command
+CMD /wait-for-db.sh
