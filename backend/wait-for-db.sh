@@ -7,4 +7,5 @@ done
 
 php artisan migrate
 php artisan app:scrape-news
+php artisan db:seed --class=DefaultUserSeeder
 php artisan serve --host=0.0.0.0 --port=8000
