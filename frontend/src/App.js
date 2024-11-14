@@ -4,6 +4,7 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import NewsFeed from "./components/NewsFeed";
 import SearchFilter from "./components/SearchFilter";
+import Preferences from "./pages/Preferences";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { logout } from "./services/authService";
 import "./index.css";
@@ -29,7 +30,13 @@ function App() {
           </Navbar.Brand>
           <Nav className="ml-auto">
             {isLoggedIn ? (
-              <LogoutButton setIsLoggedIn={setIsLoggedIn} />
+              <>
+                <Nav.Link as={Link} to="/preferences">
+                  Preferences
+                </Nav.Link>{" "}
+                {/* Link to Preferences */}
+                <LogoutButton setIsLoggedIn={setIsLoggedIn} />
+              </>
             ) : (
               <>
                 <Nav.Link as={Link} to="/login">
@@ -52,10 +59,11 @@ function App() {
             element={
               <>
                 {isLoggedIn ? <SearchFilter onFilterChange={handleFilterChange} /> : <></>}
-                <NewsFeed filters={filters} /> {/* Pass filters to NewsFeed */}
+                <NewsFeed filters={filters} />
               </>
             }
           />
+          <Route path="/preferences" element={<Preferences />} /> {/* Add Preferences route */}
         </Routes>
       </Container>
     </Router>

@@ -1,6 +1,24 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:8000/api";
+const token = localStorage.getItem("token");
+
+export const getUserPreferences = async () =>
+  axios.get(`${API_URL}/user/preferences`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+export const updateUserPreferences = async (preferences) =>
+  axios.post(
+    `${API_URL}/user/preferences`,
+    preferences, // Send preferences directly as the data payload
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
 export const login = async (email, password) => {
   return axios.post(`${API_URL}/login`, { email, password });
@@ -11,13 +29,17 @@ export const register = async (name, email, password, passwordConfirmation) => {
 };
 
 export const logout = async () => {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-    if (token) {
-      await axios.post(`${API_URL}/logout`, {}, {
+  if (token) {
+    await axios.post(
+      `${API_URL}/logout`,
+      {},
+      {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
 };

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\UserPreferenceController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -27,6 +28,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index']);
     Route::get('/articles/sources', [ArticleController::class, 'sources']);
+
+    Route::get('/user/preferences', [UserPreferenceController::class, 'getPreferences']);
+    Route::post('/user/preferences', [UserPreferenceController::class, 'updatePreferences']);
+
+
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
     // Route::post('/preferences', [UserPreferenceController::class, 'store']);
 });
