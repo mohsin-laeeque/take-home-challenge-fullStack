@@ -9,7 +9,7 @@ Composer (if running the Laravel backend outside Docker)
 
 ## Project Structure
 
-Backend (Laravel): API for user authentication, article retrieval, and preferences
+Backend (Laravel): API for user authentication, article retrieval, and preferences<br />
 Frontend (React): UI for login, registration, news display, and preferences
 
 ## Setup and Run
@@ -33,10 +33,7 @@ password: mohsin123
 
 4 App will be running:
 
-Laravel (backend): http://localhost:8000
-
-React (frontend): http://localhost:3000
-
-MySQL: localhost:3307
-
+Laravel (backend): http://localhost:8000<br />
+React (frontend): http://localhost:3000<br />
+MySQL: localhost:3307<br />
 phpMyAdmin: http://localhost:8080
