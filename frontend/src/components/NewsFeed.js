@@ -28,9 +28,12 @@ const NewsFeed = ({ filters }) => {
   const loadArticles = async (filters, page) => {
     setIsLoading(true);
     try {
-      const response = await fetchArticles({ ...filters, page });
-      setArticles(response.data.data);
-      setTotalPages(response.data.last_page);
+      if (isLoggedIn) {
+        console.log("->>", localStorage.getItem("token"));
+        const response = await fetchArticles({ ...filters, page });
+        setArticles(response.data.data);
+        setTotalPages(response.data.last_page);
+      }
     } catch (error) {
       alert("Failed to load articles");
     } finally {
