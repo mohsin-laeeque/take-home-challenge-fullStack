@@ -34,6 +34,9 @@ password: mohsin123
 4 App will be running:
 
 Laravel (backend): http://localhost:8000
+
 React (frontend): http://localhost:3000
+
 MySQL: localhost:3307
+
 phpMyAdmin: http://localhost:8080
