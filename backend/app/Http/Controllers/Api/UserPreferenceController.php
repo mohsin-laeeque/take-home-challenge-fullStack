@@ -15,13 +15,13 @@ class UserPreferenceController extends Controller
 
     public function updatePreferences(Request $request)
     {
+
         $user = $request->user();
         $user->preferences()->updateOrCreate(
             ['user_id' => $user->id],
             [
-                'preferred_sources' => $request->preferred_sources,
-                'preferred_categories' => $request->preferred_categories,
-                'preferred_authors' => $request->preferred_authors,
+                'preferred_sources' => $request->preferredSources,
+                'preferred_authors' => $request->preferredAuthors,
             ]
         );
 

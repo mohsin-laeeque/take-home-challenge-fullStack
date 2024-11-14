@@ -20,3 +20,17 @@ export const fetchSources = () => {
     },
   });
 };
+
+export const fetchArticleAttributes = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/article-attributes`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch article attributes", error);
+    return { authors: [], sources: [] };
+  }
+};

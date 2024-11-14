@@ -40,4 +40,16 @@ class ArticleController extends Controller
         $sources = Article::distinct()->pluck('source');
         return response()->json($sources);
     }
+
+    public function getDistinctArticleAttributes()
+    {
+        // Retrieve distinct values for authors, categories, and sources
+        $authors = Article::select('author')->distinct()->pluck('author');
+        $sources = Article::select('source')->distinct()->pluck('source');
+
+        return response()->json([
+            'authors' => $authors,
+            'sources' => $sources,
+        ]);
+    }
 }
