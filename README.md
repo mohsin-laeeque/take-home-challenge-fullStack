@@ -16,18 +16,18 @@ Setup and Run
 1. Clone the Repository
 
 
-```git clone https://github.com/mohsin-laeeque/Take-Home-Challenge-FullStack.git
-cd Take-Home-Challenge-FullStack```
+    ```git clone https://github.com/mohsin-laeeque/Take-Home-Challenge-FullStack.git
+    cd Take-Home-Challenge-FullStack```
 
 
 2 Build and Run Containers (docker must be running on your machine)
 
-```docker-compose up --build -d```
+    ```docker-compose up --build -d```
 
 3 Default user is seeded 
 
-```email: mohsin@test.com
-password: mohsin123```
+    ```email: mohsin@test.com
+    password: mohsin123```
 
 4 App will be running:
 
