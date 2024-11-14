@@ -4,7 +4,7 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import NewsFeed from "./components/NewsFeed";
 import SearchFilter from "./components/SearchFilter";
-import Preferences from "./pages/Preferences";
+import Preferences from "./components/Preferences";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { logout } from "./services/authService";
 import "./index.css";
