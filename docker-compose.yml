@@ -1,49 +1,49 @@
 version: "3.8"
 services:
-  # laravel-app:
-  #   build:
-  #     context: ./backend
-  #   image: laravel-app
-  #   container_name: laravel-app
-  #   ports:
-  #     - "8000:8000"
-  #   environment:
-  #     - DB_CONNECTION=mysql
-  #     - DB_HOST=db
-  #     - DB_PORT=3306
-  #     - DB_DATABASE=task
-  #     - DB_USERNAME=root
-  #     - DB_PASSWORD=root
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
+  laravel-app:
+    build:
+      context: ./backend
+    image: laravel-app
+    container_name: laravel-app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=task
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    depends_on:
+      db:
+        condition: service_healthy
 
-  # db:
-  #   image: mysql:8.0
-  #   container_name: mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: root
-  #     MYSQL_DATABASE: task
-  #   ports:
-  #     - "3307:3306"
-  #   volumes:
-  #     - mysql_data:/var/lib/mysql
-  #   healthcheck:
-  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 3
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: task
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin
-  #   container_name: phpmyadmin
-  #   environment:
-  #     PMA_HOST: db
-  #     MYSQL_ROOT_PASSWORD: root
-  #   ports:
-  #     - "8080:80"
-  #   depends_on:
-  #     - db
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
 
   react-app:
     build:
@@ -57,8 +57,8 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    # depends_on:
-    #   - laravel-app
+    depends_on:
+      - laravel-app
 
 volumes:
   mysql_data:
