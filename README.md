@@ -20,21 +20,16 @@ Setup and Run
     cd Take-Home-Challenge-FullStack
     ```
 
-2. Set Up the Backend (Laravel)
+2 Build and Run Containers (docker must be running on your machine)
 
-
-3 Build and Run Containers (docker must be running on your machine)
-
-    ```
     docker-compose up --build -d
-    ```
 
-Laravel (backend): http://localhost:8000
-React (frontend): http://localhost:3000
-MySQL: localhost:3307
-phpMyAdmin: http://localhost:8080
+    Laravel (backend): http://localhost:8000
+    React (frontend): http://localhost:3000
+    MySQL: localhost:3307
+    phpMyAdmin: http://localhost:8080
 
-4 Default user is seeded 
+3 Default user is seeded 
 
-email: mohsin@test.com
-password: mohsin123
+    email: mohsin@test.com
+    password: mohsin123
