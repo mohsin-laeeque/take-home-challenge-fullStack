@@ -1,18 +1,18 @@
-Take-Home Challenge FullStack
+# Take-Home Challenge FullStack
 
 This is a full-stack web application built with Laravel (backend) and React (frontend). It aggregates news from various sources and provides features like user authentication, personalized news feeds, and search/filter functionalities.
 
-Prerequisites:
+## Prerequisites:
 Docker and Docker Compose
 Node.js and npm (if running the React frontend outside Docker)
 Composer (if running the Laravel backend outside Docker)
 
-Project Structure
+## Project Structure
 
 Backend (Laravel): API for user authentication, article retrieval, and preferences
 Frontend (React): UI for login, registration, news display, and preferences
 
-Setup and Run
+## Setup and Run
 
 1. Clone the Repository
 
