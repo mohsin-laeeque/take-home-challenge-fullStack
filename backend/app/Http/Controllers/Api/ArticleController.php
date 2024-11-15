@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ArticleService;
+use Illuminate\Support\Facades\Log;
 
 class ArticleController extends Controller
 {
@@ -17,19 +18,35 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $articles = $this->articleService->getFilteredArticles($request);
-        return response()->json($articles);
+        try {
+            $articles = $this->articleService->getFilteredArticles($request);
+            return response()->json($articles);
+
+        } catch (\Exception $e) {
+            Log::error('Error fetching articles: ' . $e->getMessage());
+            return response()->json(['message' => 'Internal server error'], 500);
+        }
     }
 
     public function sources()
     {
-        $sources = $this->articleService->getDistinctSources();
-        return response()->json($sources);
+        try {
+            $sources = $this->articleService->getDistinctSources();
+            return response()->json($sources);
+        } catch (\Exception $e) {
+            Log::error('Error fetching sources: ' . $e->getMessage());
+            return response()->json(['message' => 'Internal server error'], 500);
+        }
     }
 
     public function getDistinctArticleAttributes()
     {
-        $attributes = $this->articleService->getDistinctAttributes();
-        return response()->json($attributes);
+        try {
+            $attributes = $this->articleService->getDistinctAttributes();
+            return response()->json($attributes);
+        } catch (\Exception $e) {
+            Log::error('Error fetching article attributes: ' . $e->getMessage());
+            return response()->json(['message' => 'Internal server error'], 500);
+        }
     }
 }

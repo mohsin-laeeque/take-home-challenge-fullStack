@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Article;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleService
 {
@@ -27,7 +28,9 @@ class ArticleService
 
     public function getDistinctSources()
     {
-        return Article::distinct()->pluck('source');
+        return Cache::remember('distinct_sources', 3600, function () {
+            return Article::distinct()->pluck('source');
+        });
     }
 
     public function getDistinctAttributes()
