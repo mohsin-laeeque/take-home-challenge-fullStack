@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchArticles } from "../services/articleService";
 import { Card, Container, Row, Col, Spinner, Alert, Pagination } from "react-bootstrap";
 import { format } from "date-fns";
+import { PaginationComponent } from "./PaginationComponent";
 
 const NewsFeed = ({ filters }) => {
   const [articles, setArticles] = useState([]);
@@ -76,13 +77,7 @@ const NewsFeed = ({ filters }) => {
       ) : (
         <>
           <Row className="justify-content-center my-4">
-            <Pagination size="lg" className="custom-pagination">
-              {[...Array(totalPages)].map((_, index) => (
-                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => handlePageChange(index + 1)}>
-                  {index + 1}
-                </Pagination.Item>
-              ))}
-            </Pagination>
+            <PaginationComponent totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
           </Row>
           <Row>
             {articles.length > 0 ? (
@@ -117,13 +112,7 @@ const NewsFeed = ({ filters }) => {
             )}
           </Row>
           <Row className="justify-content-center my-4">
-            <Pagination size="lg" className="custom-pagination">
-              {[...Array(totalPages)].map((_, index) => (
-                <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => handlePageChange(index + 1)}>
-                  {index + 1}
-                </Pagination.Item>
-              ))}
-            </Pagination>
+            <PaginationComponent totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
           </Row>
         </>
       )}

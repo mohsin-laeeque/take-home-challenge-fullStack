@@ -2,22 +2,30 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../services/authService";
 import { Form, Button, Card, Container } from "react-bootstrap";
+import { handleApiError } from "../../utils/errorHandler";
 
 const Login = ({ setIsLoggedIn }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      alert("Please fill in both fields.");
+      return;
+    }
+    setIsLoading(true);
     try {
       const response = await login(email, password);
-      localStorage.setItem("token", response.data.token); // Store token
-      setIsLoggedIn(true); // Update login state immediately
-      navigate("/"); // Redirect to home
+      localStorage.setItem("token", response.data.token);
+      setIsLoggedIn(true);
+      navigate("/");
     } catch (error) {
-      console.error("Login failed", error);
-      alert("Login failed");
+      handleApiError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -35,8 +43,8 @@ const Login = ({ setIsLoggedIn }) => {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100 mb-3">
-              Login
+            <Button variant="primary" type="submit" className="w-100 mb-3" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
             </Button>
           </Form>
           <div className="text-center">

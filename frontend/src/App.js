@@ -5,6 +5,7 @@ import Register from "./components/Auth/Register";
 import NewsFeed from "./components/NewsFeed";
 import SearchFilter from "./components/SearchFilter";
 import Preferences from "./components/Preferences";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { logout } from "./services/authService";
 import "./index.css";
@@ -57,13 +58,25 @@ function App() {
           <Route
             path="/"
             element={
-              <>
-                {isLoggedIn ? <SearchFilter onFilterChange={handleFilterChange} /> : <></>}
-                <NewsFeed filters={filters} />
-              </>
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <>
+                  <SearchFilter onFilterChange={handleFilterChange} />
+                  <NewsFeed filters={filters} />
+                </>
+              </ProtectedRoute>
             }
           />
-          <Route path="/preferences" element={<Preferences />} /> {/* Add Preferences route */}
+          <Route
+            path="/preferences"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <>
+                  <Preferences />
+                </>
+              </ProtectedRoute>
+            }
+          />{" "}
+          {/* Add Preferences route */}
         </Routes>
       </Container>
     </Router>

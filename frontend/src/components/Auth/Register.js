@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
 
 const Register = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,11 +13,18 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (password !== passwordConfirmation) {
+      alert("Passwords do not match!");
+      return;
+    }
+    setIsLoading(true);
     try {
       await register(name, email, password, passwordConfirmation);
       navigate("/login");
     } catch (error) {
-      alert("Registration failed");
+      handleApiError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -42,8 +50,8 @@ const Register = () => {
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control type="password" placeholder="Confirm Password" onChange={(e) => setPasswordConfirmation(e.target.value)} required />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100 mb-3">
-              Register
+            <Button variant="primary" type="submit" className="w-100 mb-3" disabled={isLoading}>
+              {isLoading ? "Registering..." : "Register"}
             </Button>
           </Form>
           <div className="text-center">

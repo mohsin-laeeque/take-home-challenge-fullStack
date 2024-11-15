@@ -4,6 +4,7 @@ import { fetchArticleAttributes } from "../services/articleService";
 import { Form, Button, Card, Container, Row, Col, Spinner } from "react-bootstrap";
 
 function Preferences() {
+  const [isSaving, setIsSaving] = useState(false);
   const [sources, setSources] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [preferences, setPreferences] = useState({
@@ -34,10 +35,16 @@ function Preferences() {
       });
   }, []);
 
-  const handleUpdatePreferences = () => {
-    updateUserPreferences(preferences).then(() => {
+  const handleUpdatePreferences = async () => {
+    setIsSaving(true);
+    try {
+      await updateUserPreferences(preferences);
       alert("Preferences updated successfully");
-    });
+    } catch (error) {
+      handleApiError(error);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   if (loading) {
@@ -93,8 +100,8 @@ function Preferences() {
             </Row>
 
             <div className="text-center mt-4">
-              <Button variant="primary" onClick={handleUpdatePreferences}>
-                Save Preferences
+              <Button variant="primary" onClick={handleUpdatePreferences} disabled={isSaving}>
+                {isSaving ? "Saving..." : "Save Preferences"}
               </Button>
             </div>
           </Form>
