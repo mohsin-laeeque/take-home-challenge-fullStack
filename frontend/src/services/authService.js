@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
-const API_URL = "http://localhost:8000/api";
+const API_URL = `${API_BASE_URL}`;
 const token = localStorage.getItem("token");
 
 export const getUserPreferences = async () =>

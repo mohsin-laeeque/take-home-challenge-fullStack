@@ -32,8 +32,11 @@ function App() {
           <Nav className="ml-auto">
             {isLoggedIn ? (
               <>
+                <Nav.Link as={Link} to="/">
+                🏠 Home
+                </Nav.Link>
                 <Nav.Link as={Link} to="/preferences">
-                  Preferences
+                🛠 Preferences
                 </Nav.Link>{" "}
                 {/* Link to Preferences */}
                 <LogoutButton setIsLoggedIn={setIsLoggedIn} />
@@ -99,7 +102,7 @@ function LogoutButton({ setIsLoggedIn }) {
 
   return (
     <Nav.Link onClick={handleLogout} style={{ cursor: "pointer" }}>
-      Logout
+      🔐 Logout
     </Nav.Link>
   );
 }

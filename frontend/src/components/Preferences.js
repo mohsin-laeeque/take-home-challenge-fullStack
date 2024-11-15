@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUserPreferences, updateUserPreferences } from "../services/userService";
 import { fetchArticleAttributes } from "../services/articleService";
 import { Form, Button, Card, Container, Row, Col, Spinner } from "react-bootstrap";
+import { handleApiError } from "../utils/errorHandler";
 
 function Preferences() {
   const [isSaving, setIsSaving] = useState(false);

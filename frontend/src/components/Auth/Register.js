@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { register } from "../../services/authService";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
+import { handleApiError } from "../../utils/errorHandler";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +33,7 @@ const Register = () => {
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
       <Card style={{ width: "400px" }}>
         <Card.Body>
-          <Card.Title className="text-center mb-4">Register</Card.Title>
+          <Card.Title className="text-center mb-4">👤 Register</Card.Title>
           <Form onSubmit={handleRegister}>
             <Form.Group controlId="formName" className="mb-3">
               <Form.Label>Name</Form.Label>

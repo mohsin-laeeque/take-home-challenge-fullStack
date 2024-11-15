@@ -33,7 +33,7 @@ const Login = ({ setIsLoggedIn }) => {
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
       <Card style={{ width: "400px" }}>
         <Card.Body>
-          <Card.Title className="text-center mb-4">Login</Card.Title>
+          <Card.Title className="text-center mb-4">👤 Login</Card.Title>
           <Form onSubmit={handleLogin}>
             <Form.Group controlId="formEmail" className="mb-3">
               <Form.Label>Email address</Form.Label>
