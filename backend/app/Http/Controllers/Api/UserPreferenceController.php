@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\UserPreferenceService;
+use App\Http\Requests\Api\UpdateUserPreferencesRequest;
 
 class UserPreferenceController extends Controller
 {
@@ -21,15 +22,9 @@ class UserPreferenceController extends Controller
         return response()->json($preferences);
     }
 
-    public function updatePreferences(Request $request)
+    public function updatePreferences(UpdateUserPreferencesRequest $request)
     {
-        $request->validate([
-            'preferredSources' => 'nullable|array',
-            'preferredAuthors' => 'nullable|array',
-        ]);
-
-        $this->userPreferenceService->updateUserPreferences($request->user(), $request->all());
-
+        $this->userPreferenceService->updateUserPreferences($request->user(), $request->validated());
         return response()->json(['message' => 'Preferences updated successfully']);
     }
 }

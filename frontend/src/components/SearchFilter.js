@@ -3,7 +3,7 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchSources } from "../services/articleService";
-import { getUserPreferences } from "../services/authService";
+import { getUserPreferences } from "../services/userService";
 import { format } from "date-fns";
 
 const SearchFilter = ({ onFilterChange }) => {

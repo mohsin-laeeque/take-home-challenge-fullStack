@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api";
+const API_URL = "http://localhost:8000/api/articles";
 const token = localStorage.getItem("token");
 
 export const fetchArticles = (filters = {}) => {
-  return axios.get(`${API_URL}/articles`, {
+  return axios.get(`${API_URL}/`, {
     params: filters,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -14,7 +14,7 @@ export const fetchArticles = (filters = {}) => {
 
 // Ensure fetchSources function is here and exported
 export const fetchSources = () => {
-  return axios.get(`${API_URL}/articles/sources`, {
+  return axios.get(`${API_URL}/sources`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -23,7 +23,7 @@ export const fetchSources = () => {
 
 export const fetchArticleAttributes = async () => {
   try {
-    const response = await axios.get(`${API_URL}/article-attributes`, {
+    const response = await axios.get(`${API_URL}/attributes`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

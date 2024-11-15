@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUserPreferences, updateUserPreferences } from "../services/authService";
+import { getUserPreferences, updateUserPreferences } from "../services/userService";
 import { fetchArticleAttributes } from "../services/articleService";
 import { Form, Button, Card, Container, Row, Col, Spinner } from "react-bootstrap";
 
