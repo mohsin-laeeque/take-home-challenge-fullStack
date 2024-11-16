@@ -111,9 +111,6 @@ const NewsFeed = ({ filters }) => {
               </Col>
             )}
           </Row>
-          <Row className="justify-content-center my-4">
-            <PaginationComponent totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
-          </Row>
         </>
       )}
     </Container>
