@@ -31,7 +31,6 @@ class ScrapeNews extends Command
         $this->fetchNewsFromNewsAPI();
         $this->fetchNewsFromGuardian();
         $this->fetchNewsFromNYTimes();
-        // $this->fetchNewsFromBBC();
 
         $this->info('All news sources have been scraped and saved successfully!');
         return 0;
