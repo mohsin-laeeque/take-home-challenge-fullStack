@@ -9,14 +9,17 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { logout } from "./services/authService";
 import "./index.css";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsLoggedIn } from "./redux/store/isLoggedIn/isLoggedInSlice";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const isLoggedIn = useSelector((state) => state.isLoggedIn.value);
   const [filters, setFilters] = useState({}); // Add state for filters
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem("token"));
-  }, [isLoggedIn]);
+    dispatch(setIsLoggedIn(!!localStorage.getItem("token")));
+  }, [isLoggedIn, dispatch]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters); // Update filters when changed in SearchFilter
@@ -33,13 +36,13 @@ function App() {
             {isLoggedIn ? (
               <>
                 <Nav.Link as={Link} to="/">
-                🏠 Home
+                  🏠 Home
                 </Nav.Link>
                 <Nav.Link as={Link} to="/preferences">
-                🛠 Preferences
+                  🛠 Preferences
                 </Nav.Link>{" "}
                 {/* Link to Preferences */}
-                <LogoutButton setIsLoggedIn={setIsLoggedIn} />
+                <LogoutButton />
               </>
             ) : (
               <>
@@ -56,12 +59,12 @@ function App() {
       </Navbar>
       <Container className="my-4">
         <Routes>
-          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/"
             element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <ProtectedRoute>
                 <>
                   <SearchFilter onFilterChange={handleFilterChange} />
                   <NewsFeed filters={filters} />
@@ -72,7 +75,7 @@ function App() {
           <Route
             path="/preferences"
             element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <ProtectedRoute>
                 <>
                   <Preferences />
                 </>
@@ -86,14 +89,15 @@ function App() {
   );
 }
 
-function LogoutButton({ setIsLoggedIn }) {
+function LogoutButton() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
       await logout();
       localStorage.removeItem("token");
-      setIsLoggedIn(false);
+      dispatch(setIsLoggedIn(false));
       navigate("/login");
     } catch (error) {
       console.error("Logout failed", error);

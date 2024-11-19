@@ -3,12 +3,15 @@ import { useNavigate, Link } from "react-router-dom";
 import { login } from "../../services/authService";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import { handleApiError } from "../../utils/errorHandler";
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn } from "../../redux/store/isLoggedIn/isLoggedInSlice";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,7 +23,7 @@ const Login = ({ setIsLoggedIn }) => {
     try {
       const response = await login(email, password);
       localStorage.setItem("token", response.data.token);
-      setIsLoggedIn(true);
+      dispatch(setIsLoggedIn(true));
       navigate("/");
     } catch (error) {
       handleApiError(error);

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { fetchArticles } from "../services/articleService";
-import { Card, Container, Row, Col, Spinner, Alert, Pagination } from "react-bootstrap";
+import { Card, Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { format } from "date-fns";
 import { PaginationComponent } from "./PaginationComponent";
+import { useSelector } from "react-redux";
 
 const NewsFeed = ({ filters }) => {
   const [articles, setArticles] = useState([]);
@@ -11,12 +12,11 @@ const NewsFeed = ({ filters }) => {
   const [isCheckingLogin, setIsCheckingLogin] = useState(true); // New state to handle login verification loading
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn.value);
 
   useEffect(() => {
     // Check login status
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
+    // const token = localStorage.getItem("token");
     setIsCheckingLogin(false); // Set login check to false after verifying token
   }, []);
 
@@ -30,12 +30,12 @@ const NewsFeed = ({ filters }) => {
     setIsLoading(true);
     try {
       if (isLoggedIn) {
-        console.log("->>", localStorage.getItem("token"));
         const response = await fetchArticles({ ...filters, page });
         setArticles(response.data.data);
         setTotalPages(response.data.last_page);
       }
     } catch (error) {
+      console.log('error',error)
       alert("Failed to load articles");
     } finally {
       setIsLoading(false);
