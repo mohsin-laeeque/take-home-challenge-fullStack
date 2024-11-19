@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { fetchArticles } from "../services/articleService";
 import { Card, Container, Row, Col, Spinner, Alert } from "react-bootstrap";
@@ -20,27 +20,30 @@ const NewsFeed = ({ filters }) => {
     setIsCheckingLogin(false); // Set login check to false after verifying token
   }, []);
 
+  const loadArticles = useCallback(
+    async (filters, page) => {
+      setIsLoading(true);
+      try {
+        if (isLoggedIn) {
+          const response = await fetchArticles({ ...filters, page });
+          setArticles(response.data.data);
+          setTotalPages(response.data.last_page);
+        }
+      } catch (error) {
+        console.log("error", error);
+        alert("Failed to load articles");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isLoggedIn]
+  );
+
   useEffect(() => {
     if (isLoggedIn) {
       loadArticles(filters, currentPage);
     }
-  }, [filters, currentPage, isLoggedIn]);
-
-  const loadArticles = async (filters, page) => {
-    setIsLoading(true);
-    try {
-      if (isLoggedIn) {
-        const response = await fetchArticles({ ...filters, page });
-        setArticles(response.data.data);
-        setTotalPages(response.data.last_page);
-      }
-    } catch (error) {
-      console.log('error',error)
-      alert("Failed to load articles");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [filters, currentPage, isLoggedIn, loadArticles]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
