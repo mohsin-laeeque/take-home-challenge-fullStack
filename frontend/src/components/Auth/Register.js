@@ -3,6 +3,7 @@ import { register } from "../../services/authService";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import { handleApiError } from "../../utils/errorHandler";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +16,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (password !== passwordConfirmation) {
-      alert("Passwords do not match!");
+      toast("Passwords do not match!");
       return;
     }
     setIsLoading(true);

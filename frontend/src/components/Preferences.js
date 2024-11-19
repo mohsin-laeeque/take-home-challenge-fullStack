@@ -3,6 +3,7 @@ import { getUserPreferences, updateUserPreferences } from "../services/userServi
 import { fetchArticleAttributes } from "../services/articleService";
 import { Form, Button, Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import { handleApiError } from "../utils/errorHandler";
+import { toast } from "react-toastify";
 
 function Preferences() {
   const [isSaving, setIsSaving] = useState(false);
@@ -40,7 +41,7 @@ function Preferences() {
     setIsSaving(true);
     try {
       await updateUserPreferences(preferences);
-      alert("Preferences updated successfully");
+      toast("Preferences updated successfully");
     } catch (error) {
       handleApiError(error);
     } finally {

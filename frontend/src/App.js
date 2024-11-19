@@ -11,6 +11,8 @@ import { logout } from "./services/authService";
 import "./index.css";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsLoggedIn } from "./redux/store/isLoggedIn/isLoggedInSlice";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.isLoggedIn.value);
@@ -84,6 +86,7 @@ function App() {
           />{" "}
           {/* Add Preferences route */}
         </Routes>
+        <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick theme="dark" />
       </Container>
     </Router>
   );

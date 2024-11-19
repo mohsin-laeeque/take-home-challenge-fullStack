@@ -5,6 +5,7 @@ import { Form, Button, Card, Container } from "react-bootstrap";
 import { handleApiError } from "../../utils/errorHandler";
 import { useDispatch } from "react-redux";
 import { setIsLoggedIn } from "../../redux/store/isLoggedIn/isLoggedInSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +17,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      alert("Please fill in both fields.");
+      toast("Please fill in both fields.");
       return;
     }
     setIsLoading(true);

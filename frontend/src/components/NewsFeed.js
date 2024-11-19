@@ -5,6 +5,7 @@ import { Card, Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { format } from "date-fns";
 import { PaginationComponent } from "./PaginationComponent";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const NewsFeed = ({ filters }) => {
   const [articles, setArticles] = useState([]);
@@ -31,7 +32,7 @@ const NewsFeed = ({ filters }) => {
         }
       } catch (error) {
         console.log("error", error);
-        alert("Failed to load articles");
+        toast("Failed to load articles");
       } finally {
         setIsLoading(false);
       }
